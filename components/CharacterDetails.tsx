@@ -1,5 +1,9 @@
+import { addFavorite, removeFavorite } from "@/redux/features/favoritesSlice";
+import { RootState } from "@/redux/store";
 import { Button } from "@/stories/Button";
+import getLastValueBeforeSlash from "@/utils/getLastValueBeforeSlash";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function CharacterDetails({ character }: any) {
   const [charFilms, setCharFilms] = useState<string[]>([]);
@@ -36,16 +40,36 @@ export function CharacterDetails({ character }: any) {
     fetchCharacters();
   }, []);
 
+  const dispatch = useDispatch();
+  const favorites = useSelector(
+    (state: RootState) => state.favorites.favorites
+  );
+  const isFavorite = favorites.some(
+    (fav: any) =>
+      getLastValueBeforeSlash(fav.url) ===
+      getLastValueBeforeSlash(character.url)
+  );
+
   return (
     <div className="max-w-3xl mx-auto p-6 border border-gray-300 rounded-lg shadow-md h-full">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-700">{character.name}</h1>
-        <Button
-          label="Add to Favorites"
-          variant="secondary"
-          //  onClick={onAddFavorite}
-          // disabled={false}
-        />
+
+        <button
+          onClick={() => {
+            if (isFavorite) {
+              dispatch(removeFavorite(getLastValueBeforeSlash(character.url)));
+            } else {
+              dispatch(addFavorite(character));
+            }
+          }}
+        >
+          {isFavorite ? (
+            <Button variant="secondary" label="Remove from Favorites" />
+          ) : (
+            <Button variant="primary" label="Add to Favorites" />
+          )}
+        </button>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">
         <div>
@@ -108,5 +132,5 @@ export function CharacterDetails({ character }: any) {
         </div>
       </div>
     </div>
-  )
+  );
 }

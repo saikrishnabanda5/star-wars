@@ -1,8 +1,16 @@
-export function FavoritesList({
-  favorites,
-  onEditFavorite,
-  onRemoveFavorite,
-}: any) {
+import { removeFavorite } from "@/redux/features/favoritesSlice";
+import { Button } from "@/stories/Button";
+import getLastValueBeforeSlash from "@/utils/getLastValueBeforeSlash";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import EditCharacterModal from "./EditCharacterModal";
+
+export function FavoritesList({ favorites }: any) {
+  const dispatch = useDispatch();
+
+  const [editingCharacter, setEditingCharacter] = useState<null>(null);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div>
       {favorites.length === 0 ? (
@@ -15,7 +23,6 @@ export function FavoritesList({
                 {favorites.name}
               </h2>
             </div>
-
             <div className="mt-4 space-y-2 text-gray-700">
               <p className="flex items-center gap-2">
                 🌍 <span className="font-semibold">Home World:</span> Tatooine
@@ -25,7 +32,7 @@ export function FavoritesList({
                 {favorites.birth_year}
               </p>
               <p className="flex items-center gap-2">
-                🚻 <span className="font-semibold">Gender:</span>{" "}
+                🚻 <span className="font-semibold">Gender:</span>
                 {favorites.gender}
               </p>
               <p className="flex items-center gap-2">
@@ -33,29 +40,47 @@ export function FavoritesList({
                 {favorites.hair_color}
               </p>
               <p className="flex items-center gap-2">
-                📏 <span className="font-semibold">Height:</span>{" "}
+                📏 <span className="font-semibold">Height:</span>
                 {favorites.height}
                 cm
               </p>
               <p className="flex items-center gap-2">
-                ⚖️ <span className="font-semibold">Mass:</span> {favorites.mass}{" "}
+                ⚖️ <span className="font-semibold">Mass:</span> {favorites.mass}
                 kg
               </p>
             </div>
-            <button
-              onClick={() => onEditFavorite("character")}
-              className="bg-yellow-500 text-white px-3 py-1 rounded"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => onRemoveFavorite(favorites.id)}
-              className="bg-red-500 text-white px-3 py-1 rounded ml-2"
-            >
-              Remove
-            </button>
+            <div className="flex">
+              <Button
+                onClick={() => {
+                  setIsOpen(true);
+                  setEditingCharacter(favorites);
+                }}
+                variant="primary"
+                label="Edit"
+              />
+              <div className="pl-2"></div>
+              <Button
+                onClick={() =>
+                  dispatch(
+                    removeFavorite(getLastValueBeforeSlash(favorites.url))
+                  )
+                }
+                variant="secondary"
+                label="Remove"
+              />
+            </div>
           </div>
         </>
+      )}
+      {editingCharacter && (
+        <EditCharacterModal
+          modalIsOpen={modalIsOpen}
+          character={editingCharacter}
+          onClose={() => {
+            setIsOpen(false);
+            setEditingCharacter(null);
+          }}
+        />
       )}
     </div>
   );
