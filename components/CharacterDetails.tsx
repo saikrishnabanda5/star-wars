@@ -55,7 +55,7 @@ export function CharacterDetails({ character }: any) {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-700">{character.name}</h1>
 
-        <button
+        <div
           onClick={() => {
             if (isFavorite) {
               dispatch(removeFavorite(getLastValueBeforeSlash(character.url)));
@@ -69,7 +69,7 @@ export function CharacterDetails({ character }: any) {
           ) : (
             <Button variant="primary" label="Add to Favorites" />
           )}
-        </button>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">
         <div>
