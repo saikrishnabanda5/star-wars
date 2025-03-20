@@ -9,7 +9,7 @@ const FavoritesPage = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-full">
       <h1 className="text-2xl font-bold mb-4">My Favorite Characters</h1>
       {favorites.length === 0 ? (
         <p className="h-screen text-center flex items-center justify-center text-xl">

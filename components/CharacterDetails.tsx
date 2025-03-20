@@ -51,7 +51,7 @@ export function CharacterDetails({ character }: any) {
   );
 
   return (
-    <div className="max-w-3xl mx-auto p-6 border border-gray-300 rounded-lg shadow-md h-full">
+    <div className="max-w-3xl mx-auto p-6 border border-gray-300 rounded-lg shadow-md">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-700">{character.name}</h1>
 

@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 
 function CharacterDetailsPage({ character }: any) {
   return (
-    <div className=" h-screen p-4 border rounded shadow">
+    <div className="p-4 border rounded">
       <CharacterDetails character={character} />
     </div>
   );
