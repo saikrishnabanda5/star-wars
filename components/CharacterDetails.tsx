@@ -107,10 +107,10 @@ export function CharacterDetails({ character }: any) {
           Character Films and Starships
         </h2>
 
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="grid sm:grid-cols-2 gap-4 mt-4">
           <div className="mt-2">
             <p className="font-semibold">Films:</p>
-            <ul className="list-disc ml-6">
+            <ul className="list-disc">
               {charFilms?.map((film: any, index) => (
                 <li key={index}>{film.title}</li>
               ))}
@@ -119,7 +119,7 @@ export function CharacterDetails({ character }: any) {
 
           <div className="mt-2">
             <p className="font-semibold">Starships:</p>
-            <ul className="list-disc ml-6">
+            <ul className="list-disc">
               {starShipsData.length > 0 ? (
                 starShipsData.map((starship: any, index) => (
                   <li key={index}>{starship.name}</li>

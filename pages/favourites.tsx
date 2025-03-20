@@ -16,7 +16,7 @@ const FavoritesPage = () => {
           No favorites added yet.
         </p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
           {favorites.map((character: any) => (
             <FavoritesList
               key={getLastValueBeforeSlash(character.url)}
