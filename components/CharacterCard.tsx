@@ -4,6 +4,7 @@ import { Button } from "@/stories/Button";
 import getLastValueBeforeSlash from "@/utils/getLastValueBeforeSlash";
 import { HeartIcon, HeartIcon as SolidHeart } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "react-tooltip";
 
 interface CharacterProps {
   character: {
@@ -46,6 +47,15 @@ export const CharacterCard: React.FC<CharacterProps> = ({
                 dispatch(addFavorite(character));
               }
             }}
+            data-tooltip-id="fav-tooltip"
+            data-tooltip-content={
+              isFavorite ? `Remove from favorites` : `Add to favorites`
+            }
+            className={`p-2 rounded-full transition-all ${
+              isFavorite
+                ? "bg-blue-100 text-blue-600"
+                : "bg-gray-100 text-gray-400"
+            }`}
           >
             {isFavorite ? (
               <SolidHeart className="w-6 h-6 text-red-500" />
@@ -53,6 +63,8 @@ export const CharacterCard: React.FC<CharacterProps> = ({
               <HeartIcon className="w-6 h-6 text-gray-400 hover:text-red-500 transition" />
             )}
           </button>
+
+          <Tooltip id="fav-tooltip" place="top" />
         </div>
 
         <div className="mt-4 space-y-2 text-gray-700">
