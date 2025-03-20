@@ -18,7 +18,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/character/${params.characterId}`;
 
   const res = await fetch(apiUrl);
-  // await fetch(`https://swapi.dev/api/people/${params.characterId}`);
   if (!res.ok) return { notFound: true };
 
   const character = await res.json();

@@ -21,8 +21,6 @@ const FavoritesPage = () => {
             <FavoritesList
               key={getLastValueBeforeSlash(character.url)}
               favorites={character}
-              onEditFavorite={() => {}}
-              onRemoveFavorite={() => {}}
             />
           ))}
         </div>
